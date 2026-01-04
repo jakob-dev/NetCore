@@ -1,0 +1,15 @@
+package de.jakob.netcore.api.redis;
+
+public interface RedisProvider {
+
+    void connect();
+
+    void disconnect();
+
+    boolean isConnected();
+
+    void publish(String channel, String message);
+
+    void subscribe(RedisMessageListener listener, String... channels);
+
+}
