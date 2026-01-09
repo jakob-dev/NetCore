@@ -17,7 +17,7 @@ public class SelectQuery {
         this.table = table;
     }
 
-    public SelectQuery column(String column) {
+    public SelectQuery column(String column)  {
         columns.add(column);
         return this;
     }

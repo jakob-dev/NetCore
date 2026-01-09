@@ -1,0 +1,42 @@
+#----- NetCore Plugin Config -----#
+
+#Database-Settings. Available provider types: MySQL, MariaDB, SQLite, H2.
+#Note: At this time, NetCore natively only comes with the MariaDB driver.
+#If you intend to use other types, make sure they are provided.
+Database:
+  provider: MariaDB
+  host: localhost
+  port: 3306
+  database: minecraft
+  username: root
+  password: password
+  max-pool-size: 10
+  connection-timeout: 5000
+  database-directory: /plugins/NetCore/
+
+#Redis-Settings. Make sure redis is configured right (protected mode, password), in order to avoid exploiting.
+Redis:
+  host: localhost
+  port: 6379
+  password: password
+  database: 0
+  max-pool-size: 1
+  connection-timeout: 5000
+
+Players:
+
+Punishments:
+
+General:
+
+Scoreboard:
+
+Tablist:
+
+
+
+
+#Spigot-Section
+
+
+#Velocity-Section

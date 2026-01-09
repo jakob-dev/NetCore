@@ -6,13 +6,11 @@ public record RedisSettings(
         String password,
         int database,
         int timeout,
-        int maxPoolSize,
-        int maxPoolIdle,
-        int minPoolIdle) {
+        int poolSize) {
 
 
-    public RedisSettings(String host, int port, String password, int timeout, int maxPoolSize, int maxPoolIdle, int minPoolIdle) {
-        this(host, port, password, 0, timeout, maxPoolSize, maxPoolIdle, minPoolIdle);
+    public RedisSettings(String host, int port, String password, int timeout, int poolSize) {
+        this(host, port, password, 0, timeout, poolSize);
     }
 
 }

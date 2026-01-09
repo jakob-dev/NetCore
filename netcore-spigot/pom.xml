@@ -22,7 +22,6 @@
             <groupId>de.jakob</groupId>
             <artifactId>netcore-common</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>

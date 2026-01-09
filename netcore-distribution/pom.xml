@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.jakob</groupId>
+        <artifactId>netcore</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>netcore-distribution</artifactId>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.jakob</groupId>
+            <artifactId>netcore-spigot</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.jakob</groupId>
+            <artifactId>netcore-velocity</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>com.google.errorprone:error_prone_annotations</exclude>
+                                    <!--                                <exclude>com.google.code.findbugs:jsr305</exclude>
+                                                                        <exclude>org.checkerframework:checker-qual</exclude>
+                                                                        <exclude>org.jetbrains:annotations</exclude>-->
+                                </excludes>
+                            </artifactSet>
+
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.apache.commons.pool2</pattern>
+                                    <shadedPattern>de.jakob.netcore.libs.commons.pool2</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>redis.clients</pattern>
+                                    <shadedPattern>de.jakob.netcore.libs.redis</shadedPattern>
+                                </relocation>
+                                <!--                                <relocation>
+                                                                    <pattern>org.slf4j</pattern>
+                                                                    <shadedPattern>de.jakob.netcore.libs.slf4j</shadedPattern>
+                                                                </relocation>-->
+                                <relocation>
+                                    <pattern>com.zaxxer.hikari</pattern>
+                                    <shadedPattern>de.jakob.netcore.libs.hikari</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.google.gson</pattern>
+                                    <shadedPattern>de.jakob.netcore.libs.gson</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.mariadb.jdbc</pattern>
+                                    <shadedPattern>de.jakob.netcore.libs.mariadb</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.json</pattern>
+                                    <shadedPattern>de.jakob.netcore.libs.json</shadedPattern>
+                                </relocation>
+                            </relocations>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"/>
+                            </transformers>
+                            <filters>
+<!--                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>*.properties</exclude>
+                                    </excludes>
+                                </filter>-->
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--            <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-antrun-plugin</artifactId>
+                            <version>3.1.0</version>
+                            <executions>
+                                <execution>
+                                    <id>copy-second-jar</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>run</goal>
+                                    </goals>
+                                    <configuration>
+                                        <target>
+                                            <copy file="C:/Users/Jakob/Development/local-proxy-server/plugins/core-distribution-1.0-SNAPSHOT.jar"
+                                                  tofile="C:/Users/Jakob/Development/local-server/plugins/core-distribution-1.0-SNAPSHOT.jar"/>
+                                        </target>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>-->
+        </plugins>
+    </build>
+
+</project>

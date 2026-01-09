@@ -3,17 +3,14 @@ package de.jakob.netcore.common.redis;
 import de.jakob.netcore.api.redis.RedisMessageListener;
 import de.jakob.netcore.api.redis.RedisProvider;
 import de.jakob.netcore.api.redis.RedisSettings;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import redis.clients.jedis.*;
 
-public class AbstractRedisProvider implements RedisProvider {
+public class NetCoreRedisProvider implements RedisProvider {
 
-    private static final Logger log = LoggerFactory.getLogger(AbstractRedisProvider.class);
     private final RedisSettings settings;
     private RedisClient redisClient;
 
-    public AbstractRedisProvider(RedisSettings settings) {
+    public NetCoreRedisProvider(RedisSettings settings) {
         this.settings = settings;
     }
 
@@ -26,15 +23,12 @@ public class AbstractRedisProvider implements RedisProvider {
                 .build();
 
         ConnectionPoolConfig connectionPoolConfig = new ConnectionPoolConfig();
-        connectionPoolConfig.setMaxTotal(settings.maxPoolSize());
-        connectionPoolConfig.setMaxIdle(settings.maxPoolIdle());
-        connectionPoolConfig.setMinIdle(settings.minPoolIdle());
+        connectionPoolConfig.setMaxTotal(settings.poolSize());
 
         this.redisClient = RedisClient.builder()
                 .hostAndPort(settings.host(), settings.port())
                 .clientConfig(config)
                 .poolConfig(connectionPoolConfig).build();
-
 
     }
 

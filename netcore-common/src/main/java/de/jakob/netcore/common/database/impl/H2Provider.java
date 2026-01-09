@@ -7,12 +7,11 @@ import de.jakob.netcore.common.database.NetCoreDatabaseProvider;
 import java.io.File;
 import java.io.IOException;
 
-
-public class SQLiteProvider extends NetCoreDatabaseProvider {
+public class H2Provider extends NetCoreDatabaseProvider {
 
     private final File file;
 
-    public SQLiteProvider(DatabaseSettings settings, String dataFolderPath) {
+    public H2Provider(DatabaseSettings settings, String dataFolderPath) {
         super(settings);
         this.file = new File(dataFolderPath, settings.database() + ".db");
     }
@@ -34,12 +33,12 @@ public class SQLiteProvider extends NetCoreDatabaseProvider {
 
     @Override
     protected String getJdbcUrl() {
-        return "jdbc:sqlite:" + file.getAbsolutePath();
+        return "jdbc:h2:" + file.getAbsolutePath();
     }
 
     @Override
     protected String getDriverClass() {
-        return "org.sqlite.JDBC";
+        return "org.h2.Driver";
     }
 
     @Override

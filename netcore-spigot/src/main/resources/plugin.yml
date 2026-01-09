@@ -1,0 +1,9 @@
+name: NetCore
+main: de.jakob.netcore.spigot.NetCore
+version: 1.0
+api-version: 1.21
+author: EinfachJaakob
+load: STARTUP
+commands:
+  netcore:
+    description: "Manage NetCore"

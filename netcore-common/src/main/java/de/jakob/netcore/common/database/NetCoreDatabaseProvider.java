@@ -8,16 +8,14 @@ import de.jakob.netcore.api.database.DatabaseSettings;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public abstract class AbstractDatabaseProvider implements DatabaseProvider {
+public abstract class NetCoreDatabaseProvider implements DatabaseProvider {
 
     protected final DatabaseSettings settings;
     protected HikariDataSource hikariDataSource;
 
-
-    public AbstractDatabaseProvider(DatabaseSettings settings) {
+    protected NetCoreDatabaseProvider(DatabaseSettings settings) {
         this.settings = settings;
     }
-
 
     @Override
     public void connect() {
@@ -32,6 +30,12 @@ public abstract class AbstractDatabaseProvider implements DatabaseProvider {
 
         applyConfigSettings(config);
 
+        if (settings.hikariSettings() != null)
+            for (String property : settings.hikariSettings().keySet()) {
+                config.addDataSourceProperty(property, settings.hikariSettings().get(property));
+            }
+
+        this.hikariDataSource = new HikariDataSource(config);
     }
 
     @Override

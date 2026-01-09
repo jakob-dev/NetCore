@@ -4,6 +4,6 @@ public interface DatabaseManager {
 
     DatabaseProvider getGlobalDatabaseProvider();
 
-    DatabaseProvider createProvider(DatabaseSettings settings, DatabaseType type);
+    DatabaseProvider createDatabaseProvider(DatabaseSettings settings, DatabaseType databaseType);
 
 }

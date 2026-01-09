@@ -2,9 +2,9 @@ package de.jakob.netcore.common.database.impl;
 
 import com.zaxxer.hikari.HikariConfig;
 import de.jakob.netcore.api.database.DatabaseSettings;
-import de.jakob.netcore.common.database.AbstractDatabaseProvider;
+import de.jakob.netcore.common.database.NetCoreDatabaseProvider;
 
-public class MariaDBProvider extends AbstractDatabaseProvider {
+public class  MariaDBProvider extends NetCoreDatabaseProvider {
 
     public MariaDBProvider(DatabaseSettings settings) {
         super(settings);
@@ -17,7 +17,7 @@ public class MariaDBProvider extends AbstractDatabaseProvider {
 
     @Override
     protected String getDriverClass() {
-        return "com.mariadb.jdbc.Driver";
+        return "org.mariadb.jdbc.Driver";
     }
 
     @Override

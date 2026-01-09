@@ -13,6 +13,7 @@
         <module>netcore-common</module>
         <module>netcore-spigot</module>
         <module>netcore-velocity</module>
+        <module>netcore-distribution</module>
     </modules>
 
     <properties>
@@ -20,5 +21,6 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
 
 </project>
