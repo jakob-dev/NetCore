@@ -1,6 +1,5 @@
 package de.jakob.netcore.api.database;
 
-import java.io.File;
 import java.util.HashMap;
 
 public record DatabaseSettings(

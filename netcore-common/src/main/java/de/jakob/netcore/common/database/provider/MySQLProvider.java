@@ -1,10 +1,10 @@
-package de.jakob.netcore.common.database.impl;
+package de.jakob.netcore.common.database.provider;
 
 import com.zaxxer.hikari.HikariConfig;
 import de.jakob.netcore.api.database.DatabaseSettings;
-import de.jakob.netcore.common.database.NetCoreDatabaseProvider;
+import de.jakob.netcore.common.database.HikariDatabaseProvider;
 
-public class MySQLProvider extends NetCoreDatabaseProvider {
+public class MySQLProvider extends HikariDatabaseProvider {
 
     public MySQLProvider(DatabaseSettings settings) {
         super(settings);

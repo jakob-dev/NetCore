@@ -100,30 +100,31 @@
                                     </excludes>
                                 </filter>-->
                             </filters>
+                            <outputFile>C:/Users/Jakob/Development/local-proxy-server/plugins/netcore-proxy.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <!--            <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-antrun-plugin</artifactId>
-                            <version>3.1.0</version>
-                            <executions>
-                                <execution>
-                                    <id>copy-second-jar</id>
-                                    <phase>package</phase>
-                                    <goals>
-                                        <goal>run</goal>
-                                    </goals>
-                                    <configuration>
-                                        <target>
-                                            <copy file="C:/Users/Jakob/Development/local-proxy-server/plugins/core-distribution-1.0-SNAPSHOT.jar"
-                                                  tofile="C:/Users/Jakob/Development/local-server/plugins/core-distribution-1.0-SNAPSHOT.jar"/>
-                                        </target>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-second-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy file="C:/Users/Jakob/Development/local-proxy-server/plugins/netcore-proxy.jar"
+                                      tofile="C:/Users/Jakob/Development/local-server/plugins/netcore-spigot.jar"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

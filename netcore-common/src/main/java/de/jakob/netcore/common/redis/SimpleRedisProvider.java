@@ -5,12 +5,12 @@ import de.jakob.netcore.api.redis.RedisProvider;
 import de.jakob.netcore.api.redis.RedisSettings;
 import redis.clients.jedis.*;
 
-public class NetCoreRedisProvider implements RedisProvider {
+public class SimpleRedisProvider implements RedisProvider {
 
     private final RedisSettings settings;
     private RedisClient redisClient;
 
-    public NetCoreRedisProvider(RedisSettings settings) {
+    public SimpleRedisProvider(RedisSettings settings) {
         this.settings = settings;
     }
 
@@ -30,6 +30,7 @@ public class NetCoreRedisProvider implements RedisProvider {
                 .clientConfig(config)
                 .poolConfig(connectionPoolConfig).build();
 
+        redisClient.ping();
     }
 
     @Override
@@ -69,7 +70,6 @@ public class NetCoreRedisProvider implements RedisProvider {
                 redisClient.subscribe(jedisPubSub, channels);
 
             } catch (Exception e) {
-                // Subscription aborted
             }
         }, "NetCore-Redis-Subscriber").start();
 

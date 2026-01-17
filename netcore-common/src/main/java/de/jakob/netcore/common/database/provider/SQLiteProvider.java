@@ -1,17 +1,18 @@
-package de.jakob.netcore.common.database.impl;
+package de.jakob.netcore.common.database.provider;
 
 import com.zaxxer.hikari.HikariConfig;
 import de.jakob.netcore.api.database.DatabaseSettings;
-import de.jakob.netcore.common.database.NetCoreDatabaseProvider;
+import de.jakob.netcore.common.database.HikariDatabaseProvider;
 
 import java.io.File;
 import java.io.IOException;
 
-public class H2Provider extends NetCoreDatabaseProvider {
+
+public class SQLiteProvider extends HikariDatabaseProvider {
 
     private final File file;
 
-    public H2Provider(DatabaseSettings settings, String dataFolderPath) {
+    public SQLiteProvider(DatabaseSettings settings, String dataFolderPath) {
         super(settings);
         this.file = new File(dataFolderPath, settings.database() + ".db");
     }
@@ -33,12 +34,12 @@ public class H2Provider extends NetCoreDatabaseProvider {
 
     @Override
     protected String getJdbcUrl() {
-        return "jdbc:h2:" + file.getAbsolutePath();
+        return "jdbc:sqlite:" + file.getAbsolutePath();
     }
 
     @Override
     protected String getDriverClass() {
-        return "org.h2.Driver";
+        return "org.sqlite.JDBC";
     }
 
     @Override

@@ -18,7 +18,7 @@ public class NetCoreAPI {
 
     public static void setInstance(NetCoreAPI apiImplementation) {
         if (instance != null) {
-            throw new UnsupportedOperationException("NetCoreAPI has already been initialized!");
+            throw new IllegalStateException("NetCoreAPI has already been initialized!");
         }
         instance = apiImplementation;
     }

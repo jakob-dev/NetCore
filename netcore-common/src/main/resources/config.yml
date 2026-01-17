@@ -2,13 +2,13 @@
 
 #Database-Settings. Available provider types: MySQL, MariaDB, SQLite, H2.
 #Note: At this time, NetCore natively only comes with the MariaDB driver.
-#If you intend to use other types, make sure they are provided.
+#If you intend to use other types, make sure the drivers are provided.
 Database:
   provider: MariaDB
   host: localhost
   port: 3306
   database: minecraft
-  username: root
+  username: minecraft
   password: password
   max-pool-size: 10
   connection-timeout: 5000
@@ -23,20 +23,57 @@ Redis:
   max-pool-size: 1
   connection-timeout: 5000
 
-Players:
-
-Punishments:
-
-General:
-
+#Note that the scoreboard is running on the subserver. The update-interval is measured in ticks.
+#Compatible Unicodes: https://pastebin.com/nEPyiG65
+#Small Font: https://lingojam.com/MinecraftSmallFont
+#Papi Placeholders: https://github.com/PlaceholderAPI/PlaceholderAPI/wiki/Placeholders
+#Example placeholder addons: LocalTime, LuckPerms, Player, Server
 Scoreboard:
+  enabled: true
+  update-interval: 40 # Ticks
+  title: "&b&lѕᴇʀᴠᴇʀ"
+  scores:
+    - "&7&m                                "
+    - "       &7%localtime_time_DD.MM.YY HH:mm%"
+    - "&r"
+    - "&b&l%player_name%"
+    - "&8| &7ʀᴀɴᴋ&8: &r%luckperms_prefix%"
+    - "&8| &7ᴘɪɴɢ&8: &r%player_colored_ping% &7ms"
+    - "&r"
+    - "&b&lServer"
+    - "&8| &7ɴᴀᴍᴇ&8: &7Server-1"
+    - "&8| &7ᴏɴʟɪɴᴇ&8: &b%server_online%"
+    - "&r"
+    - "          &7ѕᴇʀᴠᴇʀ.ɴᴇᴛ"
+    - "&7&m                                "
 
 Tablist:
+  enabled: true
+  format: "%prefix% &8| &7%player_name% %suffix%"
+  text:
+    enabled: false  #Not yet implemented.
+    header: ""
+    footer: ""
 
+Chat:
+  enabled: true
+  cooldown: 3 # Seconds
+  anti-spam: true # Prevent sending the same message twice
+  anti-caps: true # Prevent messages with > 50% caps
+  format: "%prefix% &8| §7%player_name% §8» §7%message%" # Available placeholders: %prefix%, %player_name%, %message% + PAPI
+  join-message: "[+] %player_name%"
+  quit-message: "[-] %player_name%"
+  blocked-commands:
+    whitelist: true
+    message: "&cYou are not permitted to use this command!"
+    commands:
+      - "plugins"
+      - "version"
 
+Users:
+  cache-duration: 2880 #Minutes
 
-
-#Spigot-Section
-
-
-#Velocity-Section
+Messages:
+  prefix: "&7[&bNet&7Core] &8» &7"
+  no-permission: "&7You &cdon't &7have permission to execute this command."
+  only-players: "&7You have to be a &cplayer &7to execute this command."
