@@ -100,7 +100,7 @@
                                     </excludes>
                                 </filter>-->
                             </filters>
-                            <outputFile>C:/Users/Jakob/Development/local-proxy-server/plugins/netcore-proxy.jar</outputFile>
+                            <outputFile>C:/Users/Jakob/Development/local-proxy-server/plugins/NetCore.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -118,8 +118,8 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy file="C:/Users/Jakob/Development/local-proxy-server/plugins/netcore-proxy.jar"
-                                      tofile="C:/Users/Jakob/Development/local-server/plugins/netcore-spigot.jar"/>
+                                <copy file="C:/Users/Jakob/Development/local-proxy-server/plugins/NetCore.jar"
+                                      tofile="C:/Users/Jakob/Development/local-server/plugins/NetCore.jar"/>
                             </target>
                         </configuration>
                     </execution>

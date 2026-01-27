@@ -4,7 +4,7 @@ package de.jakob.netcore.api.database.queries;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class InsertQuery {
+public class InsertQuery implements QueryBuilder{
 
     private final String table;
     private final LinkedHashMap<String, String> values = new LinkedHashMap<String, String>();
@@ -46,6 +46,7 @@ public class InsertQuery {
         return this;
     }
 
+    @Override
     public String build() {
         StringBuilder builder = new StringBuilder();
         builder.append("INSERT ");

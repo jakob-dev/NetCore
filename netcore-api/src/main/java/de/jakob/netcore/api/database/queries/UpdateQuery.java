@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UpdateQuery {
+public class UpdateQuery implements QueryBuilder {
 
     private final String table;
     private final LinkedHashMap<String, String> values = new LinkedHashMap<String, String>();
@@ -35,6 +35,7 @@ public class UpdateQuery {
         return this;
     }
 
+    @Override
     public String build() {
         StringBuilder builder = new StringBuilder();
         builder.append("UPDATE ")

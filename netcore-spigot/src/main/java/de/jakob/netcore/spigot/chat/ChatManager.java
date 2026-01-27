@@ -1,10 +1,10 @@
 package de.jakob.netcore.spigot.chat;
 
-import de.jakob.netcore.common.util.PlaceholderUtil;
+import de.jakob.netcore.common.depend.PlaceholderAPI;
+import de.jakob.netcore.common.messages.NetCoreTranslation;
 import de.jakob.netcore.common.util.ChatFormatter;
-import de.jakob.netcore.common.util.LuckPermsUtil;
+import de.jakob.netcore.common.depend.LuckPerms;
 import de.jakob.netcore.spigot.NetCore;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -57,7 +57,7 @@ public class ChatManager {
         if (cooldowns.containsKey(player.getUniqueId())) {
             long remaining = cooldowns.get(player.getUniqueId()) - System.currentTimeMillis();
             if (remaining > 0) {
-                player.sendMessage(ChatColor.RED + "Please wait " + String.format("%.1f", remaining / 1000.0) + "s before sending another message.");
+                player.sendMessage(NetCoreTranslation.CHAT_COOLDOWN.getCompleteTranslatedString().replace("%duration%", String.format("%.1f", remaining / 1000.0)));
                 return false;
             }
         }
@@ -65,13 +65,13 @@ public class ChatManager {
         if (antiSpam) {
             String last = lastMessages.get(player.getUniqueId());
             if (last != null && last.equalsIgnoreCase(message)) {
-                player.sendMessage(ChatColor.RED + "You cannot send the same message twice.");
+                player.sendMessage(NetCoreTranslation.SAME_MESSAGE.getCompleteTranslatedString());
                 return false;
             }
         }
 
         if (antiCaps && isCaps(message)) {
-            player.sendMessage(ChatColor.RED + "Please do not use so many caps.");
+            player.sendMessage(NetCoreTranslation.NO_CAPS.getCompleteTranslatedString());
             return false;
         }
 
@@ -103,11 +103,11 @@ public class ChatManager {
         output = output.replace("%player_name%", "%1$s");
         output = output.replace("%message%", "%2$s");
 
-        String prefix = LuckPermsUtil.getPrefix(player.getUniqueId());
+        String prefix = LuckPerms.getPrefix(player.getUniqueId());
         output = output.replace("%prefix%", prefix);
 
-        if (PlaceholderUtil.enabled) {
-            output = PlaceholderAPI.setPlaceholders(player, output);
+        if (PlaceholderAPI.enabled) {
+            output = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, output);
         }
 
         return ChatFormatter.translate(output);

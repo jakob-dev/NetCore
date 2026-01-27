@@ -3,17 +3,20 @@ package de.jakob.netcore.api;
 import de.jakob.netcore.api.database.DatabaseManager;
 import de.jakob.netcore.api.database.DatabaseProvider;
 import de.jakob.netcore.api.redis.RedisProvider;
+import de.jakob.netcore.api.user.UserManager;
 
 public class NetCoreAPI {
 
     private static NetCoreAPI instance;
 
     private final DatabaseManager databaseManager;
+    private final UserManager userManager;
     private final RedisProvider redisProvider;
 
-    public NetCoreAPI(DatabaseManager databaseManager, RedisProvider redisProvider) {
+    public NetCoreAPI(DatabaseManager databaseManager, RedisProvider redisProvider, UserManager userManager) {
         this.databaseManager = databaseManager;
         this.redisProvider = redisProvider;
+        this.userManager = userManager;
     }
 
     public static void setInstance(NetCoreAPI apiImplementation) {
@@ -28,7 +31,6 @@ public class NetCoreAPI {
             throw new IllegalStateException("NetCoreAPI has not been initialized!");
         }
         return instance;
-
     }
 
     public DatabaseManager getDatabaseManager() {
@@ -37,5 +39,9 @@ public class NetCoreAPI {
 
     public RedisProvider getRedisProvider() {
         return redisProvider;
+    }
+
+    public UserManager getUserManager() {
+        return userManager;
     }
 }

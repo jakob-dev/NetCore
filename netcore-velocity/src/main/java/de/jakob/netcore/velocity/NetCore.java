@@ -1,23 +1,25 @@
 package de.jakob.netcore.velocity;
 
 import com.google.inject.Inject;
+import com.velocitypowered.api.event.EventManager;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
-import com.velocitypowered.api.proxy.ConsoleCommandSource;
 import com.velocitypowered.api.proxy.ProxyServer;
 import de.jakob.netcore.api.NetCoreAPI;
 import de.jakob.netcore.api.database.DatabaseSettings;
 import de.jakob.netcore.api.database.DatabaseType;
 import de.jakob.netcore.api.redis.RedisSettings;
 import de.jakob.netcore.common.database.DefaultDatabaseManager;
+import de.jakob.netcore.common.messages.NetCoreTranslation;
 import de.jakob.netcore.common.redis.SimpleRedisProvider;
+import de.jakob.netcore.common.user.DefaultUserManager;
+import de.jakob.netcore.common.util.TimeFormatter;
 import de.jakob.netcore.velocity.config.ConfigManager;
-import net.kyori.adventure.resource.ResourcePackInfo;
-import net.kyori.adventure.text.Component;
+import de.jakob.netcore.velocity.listeners.ConnectionListener;
 import org.slf4j.Logger;
 import org.spongepowered.configurate.ConfigurationNode;
 
@@ -34,7 +36,9 @@ public class NetCore {
 
     private ConfigManager configManager;
     private ConfigurationNode config;
+    private ConfigurationNode language;
 
+    private DefaultUserManager userManager;
     private DefaultDatabaseManager databaseManager;
     private SimpleRedisProvider redisProvider;
     private NetCoreAPI netCoreAPI;
@@ -53,6 +57,10 @@ public class NetCore {
         logger.info("Loading config...");
         configManager = new ConfigManager(dataDirectory, logger);
         config = configManager.getConfig("config.yml");
+        language = configManager.getConfig("translation.yml");
+
+        NetCoreTranslation.setTranslationProvider(key -> language.getString(key));
+        TimeFormatter.setFormatPattern(config.node("Users", "playtime-format").getString());
 
         logger.info("Loading database provider...");
 
@@ -67,10 +75,14 @@ public class NetCore {
             return;
         }
 
+        logger.info("Loading user manager...");
+        userManager = new DefaultUserManager(databaseManager.getGlobalDatabaseProvider(), redisProvider, 60);
+
         logger.info("Creating API instance...");
-        netCoreAPI = new NetCoreAPI(databaseManager, redisProvider);
+        netCoreAPI = new NetCoreAPI(databaseManager, redisProvider, userManager);
         NetCoreAPI.setInstance(netCoreAPI);
 
+        registerListeners();
 
         Optional<String> pluginVersion = pluginContainer.getDescription().getVersion();
         sendConsoleMessage("<aqua>   _  __    __  <gray>_____            ");
@@ -140,6 +152,12 @@ public class NetCore {
         }
     }
 
+    public void registerListeners() {
+        EventManager eventManager = proxyServer.getEventManager();
+
+        eventManager.register(this, new ConnectionListener(this));
+    }
+
     public void sendConsoleMessage(String text) {
         proxyServer.getConsoleCommandSource().sendRichMessage(text);
     }
@@ -171,5 +189,9 @@ public class NetCore {
 
     public Path getDataDirectory() {
         return dataDirectory;
+    }
+
+    public DefaultUserManager getUserManager() {
+        return userManager;
     }
 }

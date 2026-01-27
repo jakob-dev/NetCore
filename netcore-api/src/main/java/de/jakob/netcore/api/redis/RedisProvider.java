@@ -12,4 +12,10 @@ public interface RedisProvider {
 
     void subscribe(RedisMessageListener listener, String... channels);
 
+    void set(String key, String value);
+
+    void set(String key, String value, long seconds);
+
+    String get(String key);
+
 }

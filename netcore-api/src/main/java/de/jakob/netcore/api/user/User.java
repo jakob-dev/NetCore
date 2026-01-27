@@ -20,5 +20,4 @@ public interface User {
 
     long getSessionTime();
 
-
 }

@@ -58,7 +58,7 @@ public class ConfigManager {
 
         try {
             ConfigurationNode node = configurationLoader.load();
-            configCache.put(fileName, node); // In die Map packen
+            configCache.put(fileName, node);
             return node;
         } catch (IOException e) {
             logger.error("Error trying to load " + fileName, e);

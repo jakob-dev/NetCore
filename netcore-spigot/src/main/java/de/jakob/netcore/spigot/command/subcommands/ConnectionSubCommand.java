@@ -2,6 +2,7 @@ package de.jakob.netcore.spigot.command.subcommands;
 
 import de.jakob.netcore.api.database.queries.Query;
 import de.jakob.netcore.common.messages.MessageFactory;
+import de.jakob.netcore.common.messages.NetCoreTranslation;
 import de.jakob.netcore.spigot.NetCore;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,14 +14,12 @@ public class ConnectionSubCommand extends SubCommand {
     @Override
     public void onCommand(NetCore plugin, CommandSender sender, String label, String[] args) {
 
-        FileConfiguration config = plugin.getConfig();
-
         if (!sender.hasPermission("netcore.connection")) {
-            sender.sendMessage(new MessageFactory(config.getString("Messages.no-permission")).prefix(config.getString("Messages.prefix")).build());
+            sender.sendMessage(NetCoreTranslation.NO_PERMISSION.getTranslatedString());
             return;
         }
 
-        sender.sendMessage(MessageFactory.of("Testing connection...").prefix(config.getString("Messages.prefix")).build());
+        sender.sendMessage(MessageFactory.of("Testing connection...").prefix(NetCoreTranslation.PREFIX.getTranslatedString()).build());
 
         long startTime = System.nanoTime();
         Query testQuery = new Query(plugin.getDatabaseManager().getGlobalDatabaseProvider(), "SELECT VERSION();");
@@ -46,7 +45,7 @@ public class ConnectionSubCommand extends SubCommand {
 
 
             } catch (SQLException e) {
-                sender.sendMessage(new MessageFactory(config.getString("Messages.prefix")).build() + "There has been an §cerror §7testing the connection!");
+                sender.sendMessage(new MessageFactory(NetCoreTranslation.PREFIX.getTranslatedString()).build() + "There has been an §cerror §7testing the connection!");
                 plugin.getLogger().severe(e.getMessage());
             }
         });

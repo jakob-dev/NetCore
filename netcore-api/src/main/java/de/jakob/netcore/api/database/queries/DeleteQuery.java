@@ -3,7 +3,7 @@ package de.jakob.netcore.api.database.queries;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteQuery {
+public class DeleteQuery implements QueryBuilder{
 
     private final String table;
     private final List<String> wheres = new ArrayList<String>();
@@ -22,6 +22,7 @@ public class DeleteQuery {
         return this;
     }
 
+    @Override
     public String build() {
         StringBuilder builder = new StringBuilder();
         builder.append("DELETE FROM ")

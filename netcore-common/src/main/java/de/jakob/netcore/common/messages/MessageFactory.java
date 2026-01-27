@@ -20,7 +20,7 @@ public class MessageFactory {
     private UUID targetUuid;
 
     public MessageFactory(String message) {
-        this.message = message != null ? message : "???";
+        this.message = message != null ? message : "null";
     }
 
     public static MessageFactory of(String message) {

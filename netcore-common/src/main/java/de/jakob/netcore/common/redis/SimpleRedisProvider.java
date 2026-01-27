@@ -75,7 +75,25 @@ public class SimpleRedisProvider implements RedisProvider {
 
     }
 
+    @Override
+    public void set(String key, String value) {
+        redisClient.set(key, value);
+    }
+
+    @Override
+    public void set(String key, String value, long seconds) {
+        redisClient.setex(key, seconds, value);
+    }
+
+    @Override
+    public String get(String key) {
+        return redisClient.get(key);
+    }
+
+
     public RedisClient getRedisClient() {
         return redisClient;
     }
+
+
 }

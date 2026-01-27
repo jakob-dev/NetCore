@@ -1,11 +1,11 @@
 package de.jakob.netcore.spigot.scoreboard;
 
 import de.jakob.netcore.common.util.ChatFormatter;
-import de.jakob.netcore.common.util.PlaceholderUtil;
+import de.jakob.netcore.common.util.TimeFormatter;
+import de.jakob.netcore.common.depend.PlaceholderAPI;
+import de.jakob.netcore.api.user.User;
 import de.jakob.netcore.spigot.NetCore;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -23,6 +23,7 @@ public class ScoreboardManager {
     private final Map<UUID, PacketScoreboard> scoreboardMap;
     private String scoreboardTitle;
     private List<String> scoreboardLines;
+    private String playtimeFormat;
 
 
     public ScoreboardManager(NetCore plugin) {
@@ -39,6 +40,7 @@ public class ScoreboardManager {
         }
         this.scoreboardTitle = ChatFormatter.translate(plugin.getConfig().getString("Scoreboard.title", "§e§lSERVER"));
         this.scoreboardLines = plugin.getConfig().getStringList("Scoreboard.scores");
+        this.playtimeFormat = plugin.getConfig().getString("Scoreboard.playtime-format", "[%d% Day(s) ][%h% Hour(s) ][%m% Minute(s) ][%s% Second(s)]");
         long interval = plugin.getConfig().getLong("Scoreboard.update-interval", 20L);
 
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -57,6 +59,8 @@ public class ScoreboardManager {
         PacketScoreboard scoreboard = new PacketScoreboard(player, objectiveId, scoreboardTitle);
         scoreboard.create();
         scoreboardMap.put(player.getUniqueId(), scoreboard);
+        updateBoard(scoreboard);
+
     }
 
     public void handleQuit(Player player) {
@@ -82,9 +86,18 @@ public class ScoreboardManager {
         for (String line : scoreboardLines) {
             String text = line;
 
-            if (PlaceholderUtil.enabled) {
+            if (text.contains("%playtime%")) {
+                User user = plugin.getUserManager().getCachedUser(player.getUniqueId());
+                if (user != null) {
+                    text = text.replace("%playtime%", TimeFormatter.formatPlaytime(user.getPlayTime(), playtimeFormat));
+                } else {
+                    text = text.replace("%playtime%", "Loading...");
+                }
+            }
+
+            if (PlaceholderAPI.enabled) {
                 try {
-                    text = PlaceholderAPI.setPlaceholders(player, text);
+                    text = me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, text);
                 } catch (Exception e) {
                     plugin.getLogger().warning(e.getMessage());
                 }

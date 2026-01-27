@@ -32,6 +32,7 @@ Scoreboard:
   enabled: true
   update-interval: 40 # Ticks
   title: "&b&lѕᴇʀᴠᴇʀ"
+  playtime-format: "[%h% Hour(s) ]" #[%d% Day(s) ][%h% Hour(s) ][%m% Minute(s) ][%s% Second(s)]
   scores:
     - "&7&m                                "
     - "       &7%localtime_time_DD.MM.YY HH:mm%"
@@ -39,6 +40,7 @@ Scoreboard:
     - "&b&l%player_name%"
     - "&8| &7ʀᴀɴᴋ&8: &r%luckperms_prefix%"
     - "&8| &7ᴘɪɴɢ&8: &r%player_colored_ping% &7ms"
+    - "&8| &7ᴘʟᴀʏᴛɪᴍᴇ&8: &r%playtime%"
     - "&r"
     - "&b&lServer"
     - "&8| &7ɴᴀᴍᴇ&8: &7Server-1"
@@ -61,8 +63,8 @@ Chat:
   anti-spam: true # Prevent sending the same message twice
   anti-caps: true # Prevent messages with > 50% caps
   format: "%prefix% &8| §7%player_name% §8» §7%message%" # Available placeholders: %prefix%, %player_name%, %message% + PAPI
-  join-message: "[+] %player_name%"
-  quit-message: "[-] %player_name%"
+  join-message: "&7[&b+&7] %player_name%"
+  quit-message: "&7[&c-&7] %player_name%"
   blocked-commands:
     whitelist: true
     message: "&cYou are not permitted to use this command!"
@@ -72,8 +74,7 @@ Chat:
 
 Users:
   cache-duration: 2880 #Minutes
+  playtime-format: "[%d% Day(s) ][%h% Hour(s) ][%m% Minute(s) ][%s% Second(s) ]"
 
-Messages:
-  prefix: "&7[&bNet&7Core] &8» &7"
-  no-permission: "&7You &cdon't &7have permission to execute this command."
-  only-players: "&7You have to be a &cplayer &7to execute this command."
+
+

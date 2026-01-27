@@ -1,0 +1,18 @@
+# Language Config for NetCore
+
+#General Messages
+prefix: "&b&oNetCore &r&8» &7"
+no-permission: "&cYou dont have permission to execute this command."
+only-player: "&cYou have to be a player to execute this command"
+
+
+#Chat-Messages
+chat-cooldown: "&7Please wait &c%duration% &7seconds before sending another message!"
+same-message: "&7You &ccan't &7send the same message twice!"
+no-caps: "&7Please &cdisable &7capslock!"
+
+playtime: "Playtime: %playtime%"
+
+
+
+

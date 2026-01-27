@@ -8,3 +8,5 @@ softdepend: ["PlaceholderAPI", "LuckPerms"]
 commands:
   netcore:
     description: "Manage NetCore"
+  playtime:
+    description: "View playtimes"

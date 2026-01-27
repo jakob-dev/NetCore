@@ -1,6 +1,6 @@
-package de.jakob.netcore.common.util;
+package de.jakob.netcore.common.depend;
 
-public class PlaceholderUtil {
+public class PlaceholderAPI {
 
     public static boolean enabled;
 

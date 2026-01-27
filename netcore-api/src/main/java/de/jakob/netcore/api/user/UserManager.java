@@ -6,13 +6,17 @@ import java.util.concurrent.CompletableFuture;
 
 public interface UserManager {
 
+    boolean isUserCached(UUID uuid);
+
+    boolean isUserCached(String name);
+
     public User getCachedUser(UUID uuid);
 
     public User getCachedUser(String name);
 
     public Set<User> getCachedUsers();
 
-    CompletableFuture<UUID> lookupUniqueId(String username);
+    CompletableFuture<UUID> lookupUUID(String username);
 
     CompletableFuture<String> lookupUsername(UUID uuid);
 
@@ -20,8 +24,12 @@ public interface UserManager {
 
     CompletableFuture<User> loadUser(String name);
 
-    boolean isCached(UUID uuid);
+    CompletableFuture<User> handleProxyLogin(UUID uuid, String name, String ip);
 
-    boolean isCached(String name);
+    CompletableFuture<User> handleServerLogin(UUID uuid);
+
+    void handleProxyQuit(UUID uuid);
+
+    void handleServerQuit(UUID uuid);
 
 }

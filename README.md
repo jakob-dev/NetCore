@@ -20,9 +20,12 @@ The project is organized into several Maven modules:
 
 * [x] Developer API for Database Access
 * [x] MySQL & Redis Implementation
+* [x] Custom Scoreboard (Spigot)
+* [x] Basic Chat Manager (Spigot)
+* [x] PAPI and LuckPerms integration (Spigot)
+* [ ] User management & settings (API)
+* [ ] Tablist Messages (Velocity)
 * [ ] Global Punishment System (Velocity)
-* [ ] Custom Scoreboard & Tablist (Spigot)
-* [ ] ...
 
 ---
 

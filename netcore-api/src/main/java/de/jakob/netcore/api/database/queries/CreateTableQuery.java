@@ -3,7 +3,7 @@ package de.jakob.netcore.api.database.queries;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateTableQuery {
+public class CreateTableQuery implements QueryBuilder{
 
     private final String table;
     private boolean ifNotExists = false;
@@ -29,6 +29,7 @@ public class CreateTableQuery {
         return this;
     }
 
+    @Override
     public String build() {
         StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE ");
